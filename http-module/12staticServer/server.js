@@ -33,7 +33,7 @@ const server = http.createServer((request, response) => {
         //获取对应的累心
         let type = mimes[ext];
         if(type) {
-            response.setHeader('content-type', type);
+            response.setHeader('content-type', type + ";charset=utf-8");
         } else {
             response.setHeader('content-type', 'application/octet-stream');
         }
