@@ -1,15 +1,18 @@
-/**
- * 创建一个HTTP服务，端口为9000，满足如下需求
- * GET  /index.html         响应 page/index.html 的文件内容
- * GET  /css/app.css        响应 page/css/app.css 的文件内容
- * GET  /images/logo.png    响应 page/images/logo.png 的文件内容
- */
-
-// 要求：
-// 搭建一个http服务，响应一个4行3列的表格，并且要求表格有隔行换色效果哦，且点击单元格能高亮显示
-
 const http = require("http");
 const fs = require("fs");
+const path = require("path");
+
+let mimes = {
+    html: 'text/html',
+    css: 'text/css',
+    js: 'text/javascript',
+    png: 'image/png',
+    jpg: 'image/jpeg',
+    gif: 'image/gif',
+    mp4: 'video/mp4',
+    mp3: 'audio/mpeg',
+    json: 'application/json'
+}
 
 const server = http.createServer((request, response) => {
     // 根据请求路径返回响应结果
@@ -25,6 +28,15 @@ const server = http.createServer((request, response) => {
             return;
         }
 
+        //获取文件后缀名
+        let ext = path.extname(filePath).slice(1);
+        //获取对应的累心
+        let type = mimes[ext];
+        if(type) {
+            response.setHeader('content-type', type);
+        } else {
+            response.setHeader('content-type', 'application/octet-stream');
+        }
         response.end(data);
     });
 });
