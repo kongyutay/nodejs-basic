@@ -17,3 +17,8 @@ mongoose.connection.on('error', () => {
 mongoose.connection.on('close', () => {
     console.log('链接关闭')
 })
+
+setTimeout(() => {
+    mongoose.disconnect();
+},2000)
+//两秒后自动断开链接出发连接关闭
