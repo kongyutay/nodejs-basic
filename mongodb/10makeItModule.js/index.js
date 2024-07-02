@@ -15,6 +15,7 @@ db(()=>{
         }
         //data是插入成功后的文档对象，会自动生成id和版本
         console.log(data)
+        mongoose.disconnect();
     })
 
 }, ()=> {
